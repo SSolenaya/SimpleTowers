@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 743101316457110479e76fff7a5a4f67, type: 3}
+  m_Name: Towers settings config
+  m_EditorClassIdentifier: 
+  listTowerData:
+  - towerType: 0
+    buildPrice: 150
+    range: 3
+    shootInterval: 1
+    damage: 10
+  - towerType: 1
+    buildPrice: 130
+    range: 4
+    shootInterval: 1
+    damage: 8
+  - towerType: 2
+    buildPrice: 160
+    range: 4
+    shootInterval: 1
+    damage: 12
+  - towerType: 3
+    buildPrice: 150
+    range: 7
+    shootInterval: 1
+    damage: 9
