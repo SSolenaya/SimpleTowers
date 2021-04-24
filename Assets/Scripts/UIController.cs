@@ -12,6 +12,12 @@ public class UIController : Singleton<UIController> {
     public TMP_Text healthValueText;
     public TMP_Text coinsValueText;
 
+    void OnEnable() {
+        PlayerDataController.Inst.actionCurrentCoins += SetNewCoinsText;
+        PlayerDataController.Inst.actionCurrentHealth += SetNewHealthText;
+        PlayerDataController.Inst.actionCurrentWaveNum += SetNewWavesText;
+    }
+
     void Start() {
         SetNewWavesText(0);
         SetNewHealthText(SOController.Inst.mainGameSettings.maxAmountOfHealth);
@@ -22,12 +28,17 @@ public class UIController : Singleton<UIController> {
         wavesValueText.text = passedWavesNumber + "/" + SOController.Inst.waveSO.amountOfAllWaves;
     }
 
-    public void SetNewHealthText(int currentHealth) {
-        healthValueText.text = currentHealth + "/" + SOController.Inst.mainGameSettings.maxAmountOfHealth;
+    public void SetNewHealthText(float currentHealth) {
+        int hp = Mathf.RoundToInt(currentHealth);
+        healthValueText.text = hp + "/" + SOController.Inst.mainGameSettings.maxAmountOfHealth;
     }
 
     public void SetNewCoinsText(int currentCoins) {
         coinsValueText.text = currentCoins.ToString();
+    }
+
+    void OnDisable() {
+        PlayerDataController.Inst.actionCurrentCoins -= SetNewCoinsText;
     }
 
 

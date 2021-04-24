@@ -15,4 +15,4 @@ MonoBehaviour:
   duration: 10
   pauseBeforeNextWave: 5
   timeBetweenUnits: 1
-  amountOfAllWaves: 0
+  amountOfAllWaves: 10

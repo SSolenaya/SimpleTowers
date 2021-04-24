@@ -1,15 +1,50 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Seka;
 using UnityEngine;
 
 public class PlayerDataController : Singleton<PlayerDataController> {
-    public int currentCoins;
-    public float currentHealth;
-    public int maxWavesAmount;
-    public int currentWaveNumber;
+    private int _currentCoins;
+    public int currentCoins {
+        get { return _currentCoins;}
+        set {
+            _currentCoins = value;
+            actionCurrentCoins?.Invoke(_currentCoins);
+        }
+    }
+    public Action<int> actionCurrentCoins;
 
-    void OnEnable() {
+
+    private float _currentHealth;
+    public float currentHealth
+    {
+        get { return _currentHealth; }
+        set
+        {
+            _currentHealth = value;
+            actionCurrentHealth?.Invoke(_currentHealth);
+        }
+    }
+    public Action<float> actionCurrentHealth;
+
+    private int _currentWaveNumber;
+    public int currentWaveNumber
+    {
+        get { return _currentWaveNumber; }
+        set
+        {
+            _currentWaveNumber = value;
+            actionCurrentWaveNum?.Invoke(_currentWaveNumber);
+        }
+    }
+    public Action<int> actionCurrentWaveNum;
+
+
+    public int maxWavesAmount;
+    
+
+    void Start() {
         currentCoins = SOController.Inst.mainGameSettings.startAmountOfCoins;
         currentHealth = SOController.Inst.mainGameSettings.maxAmountOfHealth;
         maxWavesAmount = SOController.Inst.mainGameSettings.maxAmountOfWaves;

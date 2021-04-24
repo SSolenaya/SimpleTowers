@@ -17,17 +17,17 @@ MonoBehaviour:
     health: 50
     speed: 0.2
     damage: 14
-    minReward: 0
-    maxReward: 0
+    minReward: 20
+    maxReward: 30
   - enemyType: 1
     health: 30
     speed: 0.5
     damage: 20
-    minReward: 0
-    maxReward: 0
+    minReward: 25
+    maxReward: 40
   - enemyType: 2
     health: 10
     speed: 1
     damage: 18
-    minReward: 0
-    maxReward: 0
+    minReward: 30
+    maxReward: 45
