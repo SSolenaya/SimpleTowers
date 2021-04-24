@@ -15,13 +15,19 @@ MonoBehaviour:
   listEnemyData:
   - enemyType: 0
     health: 50
-    speed: 1
+    speed: 0.2
     damage: 14
+    minReward: 0
+    maxReward: 0
   - enemyType: 1
-    health: 100
-    speed: 1.4
+    health: 30
+    speed: 0.5
     damage: 20
+    minReward: 0
+    maxReward: 0
   - enemyType: 2
-    health: 75
-    speed: 2
+    health: 10
+    speed: 1
     damage: 18
+    minReward: 0
+    maxReward: 0

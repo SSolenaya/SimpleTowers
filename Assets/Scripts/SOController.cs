@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Seka;
+using UnityEditor;
 using UnityEngine;
 using UnityTemplateProjects;
 
@@ -9,9 +10,9 @@ public class SOController : Singleton<SOController> {
     public MainGameSettingsSO mainGameSettings;
     public TowersSettingsSO towersSettings;
     public EnemiesSettingsSO enemiesSettings;
+    public WaveSO waveSO;
 
-
-
+    
     public TowerData GetTowerDataByType(TowersTypes type)
     {
         TowerData result = null;

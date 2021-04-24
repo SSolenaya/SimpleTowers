@@ -6,7 +6,7 @@ namespace Assets.Scripts
     public class Bullet : MonoBehaviour
     {
 
-        private float _speed = 1f;
+        private float _speed;
         private float _damage;
         [SerializeField] private Enemy _enemyTarget;
         public float currentDis;
@@ -14,6 +14,7 @@ namespace Assets.Scripts
         public void Setup(float damage, Enemy enemy) {
             _damage = damage;
             _enemyTarget = enemy;
+            _speed = SOController.Inst.towersSettings.bulletSpeed;
         }
 
         public void Update()

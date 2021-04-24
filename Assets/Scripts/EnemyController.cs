@@ -1,9 +1,13 @@
 ﻿using System.Collections.Generic;
 using Seka;
+using UnityEngine;
 
 namespace Assets.Scripts {
-    public class EnemyController: Singleton<EnemyController> {
+    public class EnemyController : Singleton<EnemyController> {
         public List<Enemy> enemiesList = new List<Enemy>();
+        public Wave _wave;
+
+        [SerializeField] private Enemy _enemyPrefab;
         
 
         public void AddEnemy(Enemy enemy) {
@@ -11,8 +15,33 @@ namespace Assets.Scripts {
             enemy.index = enemiesList.Count;
         }
 
-        public void SpawnEnemies() {
+        public void CreateNewWave() {
+            _wave = new Wave();
+            _wave.Setup();
+        }
 
+        public void SpawnEnemies() {
+            var spawnPoint = PathController.Inst.GetPathPointByIndex(0);
+            var enemy = Instantiate(_enemyPrefab);
+            enemy.transform.position = spawnPoint.transform.position + Vector3.up*0.1f;
+            AddEnemy(enemy);
+            enemy.Setup();
+
+        }
+
+        void Update() {
+            if (_wave == null) {
+                CreateNewWave();
+            }
+            _wave.Update();
+            if (_wave.CanSpawn()) {
+                SpawnEnemies();
+                //Debug.Log("SPAWN");
+            }
+
+            if (_wave.IsEnd()) {
+                CreateNewWave();
+            }
         }
     }
 }

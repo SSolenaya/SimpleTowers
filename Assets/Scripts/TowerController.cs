@@ -21,6 +21,18 @@ public class TowerController : Singleton<TowerController> {
         towersList.Add(tower);
     }
 
+    public void ClearEmptyEnemies() {
+        StartCoroutine(IEnumClearEmptyEnemies());
+    }
+
+    public IEnumerator IEnumClearEmptyEnemies() {
+        yield return new WaitForEndOfFrame();
+        foreach (var t in towersList)
+        {
+            t.ClearEmptyEnemies();
+        }
+    }
+
     private Tower GetPrefabByTowerType(TowersTypes towerType) {
         switch (towerType) {
             case TowersTypes.fire:

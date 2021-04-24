@@ -30,9 +30,9 @@ public class Tower : MonoBehaviour, IPointerClickHandler
         _parentForBuildingModalWin = UIController.Inst.parentForUI;
     }
 
-    void LateUpdate() {
+    void Update() {
         _shootingTime -= Time.deltaTime;
-
+        _shootingTime = _shootingTime < 0 ? -1 : _shootingTime;
         if (_targetEnemyList.Count > 0 && _shootingTime <= 0) {
             Shoot();
         }
@@ -99,6 +99,22 @@ public class Tower : MonoBehaviour, IPointerClickHandler
             }
         }
         
+    }
+
+    public void ClearEmptyEnemies() {
+        while (true) {
+            bool flag = true;
+            for (int i = 0; i < _targetEnemyList.Count; i++) {
+                if (_targetEnemyList[i] == null)
+                {
+                    _targetEnemyList.RemoveAt(i);
+                    flag = false;
+                    break;
+                }
+            }
+
+            if (flag) break;
+        }
     }
 
     public void AddEnemyToTower(Enemy enemy) {

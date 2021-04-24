@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1207045548341512310}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.333, y: 0.106, z: 0.62}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.075, y: 0.075, z: 0.075}
   m_Children:
   - {fileID: 4624222205304512767}
@@ -48,14 +48,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c479050789201e24bb38a5ab9917a7ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  index: 0
   enemyType: 0
   enemyData:
     enemyType: 0
     health: 0
     speed: 0
     damage: 0
+    minReward: 0
+    maxReward: 0
   _currentPathPoint: {fileID: 0}
   _selfLookTransform: {fileID: 5750031069702502181}
+  distanceToCastle: 0
 --- !u!33 &9081295048742442357
 MeshFilter:
   m_ObjectHideFlags: 0

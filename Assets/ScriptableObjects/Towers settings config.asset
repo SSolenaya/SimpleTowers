@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 743101316457110479e76fff7a5a4f67, type: 3}
   m_Name: Towers settings config
   m_EditorClassIdentifier: 
+  bulletSpeed: 5
   listTowerData:
   - towerType: 0
     buildPrice: 150

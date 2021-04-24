@@ -1,5 +1,7 @@
-﻿using DG.Tweening;
+﻿using System;
+using DG.Tweening;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Assets.Scripts {
     public class Enemy : MonoBehaviour {
@@ -13,6 +15,7 @@ namespace Assets.Scripts {
         [SerializeField] private PathPoint _currentPathPoint;
         [SerializeField] private Transform _selfLookTransform;
 
+        [SerializeField] private float _currentHP;
         private Vector3 _lookTargetPoint;
         private Vector3 _lookAngle;
         private float _distantToTarget;
@@ -20,17 +23,18 @@ namespace Assets.Scripts {
 
         public float distanceToCastle;
 
-        void OnEnable() {
+        public void Setup() {
+
+            Array values = Enum.GetValues(typeof(EnemyTypes));
+            enemyType = (EnemyTypes)values.GetValue(Random.Range(0, values.Length));
             enemyData = SOController.Inst.GetEnemyDataByType(enemyType);
-        }
-        void Start() {
-
-            EnemyController.Inst.AddEnemy(this);    //  temp
-            GetNextTarget(PathController.Inst.GetPathPointByIndex(0)); 
-
+            _currentHP = enemyData.health;
+            GetNextTarget(PathController.Inst.GetPathPointByIndex(1)); 
+            gameObject.SetActive(true);
+            //Debug.Log(enemyType);
         }
 
-        void LateUpdate() {
+        void Update() {
             if (_currentPathPoint == null) {
 
             }
@@ -55,8 +59,8 @@ namespace Assets.Scripts {
         }
 
         public void TakeDamage(float damage) {
-            enemyData.health -= damage;
-            if (enemyData.health < 0) {
+            _currentHP -= damage;
+            if (_currentHP < 0) {
                 Hiding();
                 var rew = Random.Range(enemyData.minReward, enemyData.maxReward);
                 PlayerDataController.Inst.RewardForEnemy(rew);
@@ -102,13 +106,12 @@ namespace Assets.Scripts {
         private void Hiding() {
             // hiding in the castle with giving damage
             //PoolManager.PutEnemyToPool(this);
+           
             Destroy(gameObject);
+            TowerController.Inst.ClearEmptyEnemies();
         }
 
-        public void Destroy() {
-            if (gameObject != null) {
-                Destroy(gameObject);
-            }
-        }
+        
+
     }
 }
