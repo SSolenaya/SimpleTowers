@@ -1,8 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class PathPoint : MonoBehaviour
-{
-   public int index;
+public class PathPoint : MonoBehaviour {
+    public int index;
 }

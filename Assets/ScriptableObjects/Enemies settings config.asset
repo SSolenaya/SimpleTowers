@@ -15,7 +15,7 @@ MonoBehaviour:
   listEnemyData:
   - enemyType: 0
     health: 50
-    speed: 0.3
+    speed: 1
     damage: 14
   - enemyType: 1
     health: 100

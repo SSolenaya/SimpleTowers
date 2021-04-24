@@ -1,7 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 public enum EnemyTypes {
     t1,
@@ -12,9 +9,11 @@ public enum EnemyTypes {
 
 [Serializable]
 public class EnemyData {
-
     public EnemyTypes enemyType;
     public float health;
     public float speed;
     public float damage;
+
+    public int minReward;
+    public int maxReward;
 }

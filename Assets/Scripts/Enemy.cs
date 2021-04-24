@@ -4,8 +4,11 @@ using UnityEngine;
 namespace Assets.Scripts {
     public class Enemy : MonoBehaviour {
 
+        public int index = 0;
+
         public EnemyTypes enemyType;
         public EnemyData enemyData;
+
 
         [SerializeField] private PathPoint _currentPathPoint;
         [SerializeField] private Transform _selfLookTransform;
@@ -15,15 +18,22 @@ namespace Assets.Scripts {
         private float _distantToTarget;
         private float _lastDistantToTarget;
 
+        public float distanceToCastle;
+
         void OnEnable() {
             enemyData = SOController.Inst.GetEnemyDataByType(enemyType);
         }
         void Start() {
+
+            EnemyController.Inst.AddEnemy(this);    //  temp
             GetNextTarget(PathController.Inst.GetPathPointByIndex(0)); 
+
         }
 
         void LateUpdate() {
+            if (_currentPathPoint == null) {
 
+            }
             transform.Translate(Vector3.forward * enemyData.speed * Time.deltaTime);       //   move to target
             _distantToTarget = Vector3.Distance(transform.position, _lookTargetPoint);
             //Debug.Log(_distantToTarget);
@@ -38,10 +48,18 @@ namespace Assets.Scripts {
             }
         }
 
-        private void TakeDamage(float damage) {
+        public float GetDistanceToCastle() {
+            var castlePathPoint = PathController.Inst.GetCastlePoint();
+            var dist = Vector3.Distance(transform.position, castlePathPoint.transform.position);
+            return dist;
+        }
+
+        public void TakeDamage(float damage) {
             enemyData.health -= damage;
             if (enemyData.health < 0) {
                 Hiding();
+                var rew = Random.Range(enemyData.minReward, enemyData.maxReward);
+                PlayerDataController.Inst.RewardForEnemy(rew);
             }
         }
 
@@ -83,7 +101,8 @@ namespace Assets.Scripts {
 
         private void Hiding() {
             // hiding in the castle with giving damage
-            PoolManager.PutEnemyToPool(this);
+            //PoolManager.PutEnemyToPool(this);
+            Destroy(gameObject);
         }
 
         public void Destroy() {

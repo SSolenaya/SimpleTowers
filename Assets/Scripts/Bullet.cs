@@ -1,35 +1,37 @@
-﻿using UnityEngine;
+﻿using System.ComponentModel;
+using UnityEngine;
 
 namespace Assets.Scripts
 {
     public class Bullet : MonoBehaviour
     {
 
-        public float speed;
+        private float _speed = 1f;
         private float _damage;
-        public Enemy enemyTarget;
+        [SerializeField] private Enemy _enemyTarget;
         public float currentDis;
 
-        public void Setup(float damage) {
+        public void Setup(float damage, Enemy enemy) {
             _damage = damage;
+            _enemyTarget = enemy;
         }
 
         public void Update()
         {
-            if (enemyTarget == null)
+            if (_enemyTarget == null)
             {
                 Destroy(gameObject);
                 return;
             }
 
 
-            transform.LookAt(enemyTarget.transform);
-            transform.Translate(Vector3.forward * speed * Time.deltaTime);
-            currentDis = Vector3.Distance(transform.position, enemyTarget.transform.position);
+            transform.LookAt(_enemyTarget.transform);
+            transform.Translate(Vector3.forward * _speed * Time.deltaTime);
+            currentDis = Vector3.Distance(transform.position, _enemyTarget.transform.position);
 
-            if (currentDis < 0.5f)
+            if (currentDis < 0.1f)
             {
-               /// enemyTarget.TakeDamage(_damage);
+                _enemyTarget.TakeDamage(_damage);
                 Destroy(gameObject);
             }
         }

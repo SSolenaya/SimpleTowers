@@ -9,7 +9,7 @@ public class PoolManager : MonoBehaviour
     private static Dictionary<string, Stack<GameObject>> _poolsDict;
 
     private static Dictionary<string, Stack<Enemy>> _poolsEnemyDict;
-    private static Dictionary<string, Stack<Enemy>> _poolsBulletDict;
+    private static Dictionary<string, Stack<Bullet>> _poolsBulletDict;
     private static Transform parentForDeactivatedGO;
 
     public static void Init(Transform pooledObjContainer)
@@ -41,6 +41,32 @@ public class PoolManager : MonoBehaviour
     public static void PutEnemyToPool(Enemy target)
     {
         _poolsEnemyDict[target.name].Push(target);
+        //target.transform.parent = parentForDeactivatedGO;
+        target.gameObject.SetActive(false);
+    }
+
+    public static Bullet GetBulletFromPull(Bullet bulletPrefab)
+    { //  получение объекта из пула по имени префаба
+        if (!_poolsBulletDict.ContainsKey(bulletPrefab.name))
+        {
+            _poolsBulletDict[bulletPrefab.name] = new Stack<Bullet>();
+        }
+
+        Bullet result;
+        if (_poolsBulletDict[bulletPrefab.name].Count > 0)
+        {
+            result = _poolsBulletDict[bulletPrefab.name].Pop();
+            return result;
+        }
+
+        result = Instantiate(bulletPrefab, parentForDeactivatedGO);
+        result.name = bulletPrefab.name;
+        return result;
+    }
+
+    public static void PutBulletToPool(Bullet target)
+    {
+        _poolsBulletDict[target.name].Push(target);
         //target.transform.parent = parentForDeactivatedGO;
         target.gameObject.SetActive(false);
     }

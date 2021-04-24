@@ -19,15 +19,46 @@ public class Tower : MonoBehaviour, IPointerClickHandler
     public TowerData towerData;
 
     public Transform pointShot; //  shooter obj
-    private List<Enemy> _targetEnemyList = new List<Enemy>();
+    public List<Enemy> _targetEnemyList = new List<Enemy>();
     [SerializeField] private Bullet _bulletPrefab;
+    [SerializeField] private float _shootingTime = 0;
 
     void OnEnable()
     {
+        towerData = SOController.Inst.GetTowerDataByType(towerType);
+        _shootingTime = towerData.shootInterval;
         _parentForBuildingModalWin = UIController.Inst.parentForUI;
     }
-    public void Setup() {
-        towerData = SOController.Inst.GetTowerDataByType(towerType);
+
+    void LateUpdate() {
+        _shootingTime -= Time.deltaTime;
+
+        if (_targetEnemyList.Count > 0 && _shootingTime <= 0) {
+            Shoot();
+        }
+    }
+
+    public void Shoot() {
+        var target = ChooseNearestToCastleEnemy();
+       // var bullet = PoolManager.GetBulletFromPull(_bulletPrefab);
+        var bullet = Instantiate(_bulletPrefab);
+        bullet.transform.SetParent(pointShot);
+        bullet.transform.localPosition = Vector3.zero;
+        bullet.Setup(towerData.damage, target);
+        _shootingTime = towerData.shootInterval;
+    }
+
+    private Enemy ChooseNearestToCastleEnemy() {
+        Enemy nearestEnemy = null;
+        float distanceToCastle = float.MaxValue;
+
+        foreach (var e in _targetEnemyList) {
+            if (e.GetDistanceToCastle() < distanceToCastle) {
+                distanceToCastle = e.GetDistanceToCastle();
+                nearestEnemy = e;
+            }
+        }
+        return nearestEnemy;
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -38,4 +69,51 @@ public class Tower : MonoBehaviour, IPointerClickHandler
         _buildingModalWin = Instantiate(_prefabBuildingModalWin, _parentForBuildingModalWin);
         _buildingModalWin.Setup(towerType);
     }
+
+    void OnTriggerEnter(Collider enemyTarget) {
+
+        var enemy = enemyTarget.GetComponent<Enemy>();
+        if (enemy != null) {
+            AddEnemyToTower(enemy);
+        }
+        
+    }
+
+    void OnTriggerExit (Collider enemyTarget)
+    {
+
+        var enemy = enemyTarget.GetComponent<Enemy>();
+        if (enemy != null)
+        {
+            RemoveEnemyFromTower(enemy);
+        }
+
+    }
+
+    public void RemoveEnemyFromTower(Enemy enemy)
+    {
+
+        for (int i = 0; i < _targetEnemyList.Count; i++) {
+            if (_targetEnemyList[i].index == enemy.index) {
+                _targetEnemyList.RemoveAt(i);
+            }
+        }
+        
+    }
+
+    public void AddEnemyToTower(Enemy enemy) {
+        bool flag = true;
+        foreach (var e in _targetEnemyList) {
+            if (enemy.index == e.index) {
+                flag = false;
+                break;
+            }
+        }
+
+        if (flag) {
+            _targetEnemyList.Add(enemy);
+        }
+        
+    }
+
 }

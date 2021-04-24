@@ -29,5 +29,9 @@ public class PlayerDataController : Singleton<PlayerDataController> {
         currentCoins -= coins;
     }
 
+    public void RewardForEnemy(int reward) {
+        currentCoins += reward;
+    }
+
 
 }

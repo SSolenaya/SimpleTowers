@@ -425,7 +425,7 @@ MonoBehaviour:
   parentForPriceItems: {fileID: 6677880345215606097}
   priceItemsList: []
   closeBtn: {fileID: 2244623127067456599}
-  priceItemPrefab: {fileID: 7762747976279682749, guid: c179259ed22fd2e4bb1507bf12414adf,
+  priceItemPrefab: {fileID: 7762747976279682749, guid: f86152a91230d0e46985cc0fbc291511,
     type: 3}
 --- !u!1 &8532020675336850775
 GameObject:
