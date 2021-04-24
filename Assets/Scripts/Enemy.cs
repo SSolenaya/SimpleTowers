@@ -23,15 +23,38 @@ namespace Assets.Scripts {
 
         public float distanceToCastle;
 
+        [SerializeField] private GameObject _view1;
+        [SerializeField] private GameObject _view2;
+        [SerializeField] private GameObject _view3;
+
         public void Setup() {
 
             Array values = Enum.GetValues(typeof(EnemyTypes));
             enemyType = (EnemyTypes)values.GetValue(Random.Range(0, values.Length));
+            ChooseView(enemyType);
             enemyData = SOController.Inst.GetEnemyDataByType(enemyType);
             _currentHP = enemyData.health;
             GetNextTarget(PathController.Inst.GetPathPointByIndex(1)); 
             gameObject.SetActive(true);
             //Debug.Log(enemyType);
+        }
+
+        private void ChooseView(EnemyTypes type) {
+            _view1.SetActive(false);
+            _view2.SetActive(false);
+            _view3.SetActive(false);
+            switch (type) {
+                case EnemyTypes.t1:
+                    _view1.SetActive(true);
+                    break;
+                case EnemyTypes.t2:
+                    _view2.SetActive(true);
+                    break;
+                case EnemyTypes.t3:
+                    _view3.SetActive(true);
+                    break;
+
+            }
         }
 
         void Update() {
@@ -82,11 +105,7 @@ namespace Assets.Scripts {
         private void MoveToTarget() {
           
         }
-       /* [ContextMenu("dfsdgs")]
-        public void Test() {
-            _selfLookTransform.LookAt(_lookTargetPoint);
-        }*/
-
+       
         private void RotationToTarget(PathPoint targetPathPoint) {
 
             _lookTargetPoint.x = targetPathPoint.transform.position.x + Random.Range(-0.005f, 0.005f);  //  get random point near target point to look at (each enemy looks at different point)

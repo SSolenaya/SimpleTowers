@@ -67,7 +67,7 @@ public class Tower : MonoBehaviour, IPointerClickHandler
         Debug.Log("Click on tower");
         if (_buildingModalWin != null) return;
         _buildingModalWin = Instantiate(_prefabBuildingModalWin, _parentForBuildingModalWin);
-        _buildingModalWin.Setup(towerType);
+        _buildingModalWin.Setup(this);
     }
 
     void OnTriggerEnter(Collider enemyTarget) {
@@ -130,6 +130,12 @@ public class Tower : MonoBehaviour, IPointerClickHandler
             _targetEnemyList.Add(enemy);
         }
         
+    }
+
+    public void DestroyTower() {
+        if (gameObject != null) {
+            Destroy(gameObject);
+        }
     }
 
 }

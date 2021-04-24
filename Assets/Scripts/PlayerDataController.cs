@@ -51,6 +51,18 @@ public class PlayerDataController : Singleton<PlayerDataController> {
         currentWaveNumber = 0;
     }
 
+    public void DecreaseHealth(float delta) {
+        currentHealth -= delta;
+        if (currentHealth <= 0) {
+            Time.timeScale = 0;
+            Debug.Log("The end");
+        }
+    }
+
+    public void CountWaves() {
+        currentWaveNumber++;
+    }
+
     public void AddFinance(int coins) {
         currentCoins += coins;
     }

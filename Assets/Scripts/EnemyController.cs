@@ -6,7 +6,6 @@ namespace Assets.Scripts {
     public class EnemyController : Singleton<EnemyController> {
         public List<Enemy> enemiesList = new List<Enemy>();
         public Wave _wave;
-        private int _waveNum = 0;
 
         [SerializeField] private Enemy _enemyPrefab;
         
@@ -19,8 +18,7 @@ namespace Assets.Scripts {
         public void CreateNewWave() {
             _wave = new Wave();
             _wave.Setup();
-            _waveNum += 1;
-            PlayerDataController.Inst.currentWaveNumber = _waveNum;
+            PlayerDataController.Inst.CountWaves();
         }
 
         public void SpawnEnemies() {

@@ -37,10 +37,13 @@ public class BuildingModal : MonoBehaviour {
         }
     }
 
-    public void Setup(TowersTypes towerType) {
+    public void Setup(Tower tower) {
         var pI = Instantiate(priceItemPrefab, parentForPriceItems);
-        var tData = SOController.Inst.GetTowerDataByType(towerType);
-        pI.Setup(tData.buildPrice, () => PlayerDataController.Inst.AddFinance(tData.buildPrice));
+        pI.Setup(tower.towerData.buildPrice, () => {
+            PlayerDataController.Inst.AddFinance(tower.towerData.buildPrice);
+            tower.DestroyTower();
+            Destroy();
+        });
     }
 
     void OnDisable() {
