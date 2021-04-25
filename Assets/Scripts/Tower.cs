@@ -16,11 +16,13 @@ public class Tower : MonoBehaviour, IPointerClickHandler {
     public List<Enemy> _targetEnemyList = new List<Enemy>();
     [SerializeField] private Bullet _bulletPrefab;
     [SerializeField] private float _shootingTime;
-    public Material materialTower;
+    private Material _materialTower;
+    [SerializeField] private SphereCollider _shootingRange;
 
     private void OnEnable() {
         towerData = SOController.Inst.GetTowerDataByType(towerType);
         _shootingTime = towerData.shootInterval;
+        _shootingRange.radius = towerData.range;
     }
 
     private void Update() {
@@ -33,14 +35,14 @@ public class Tower : MonoBehaviour, IPointerClickHandler {
 
     public void Shoot() {
         Enemy target = ChooseNearestToCastleEnemy();
-        Bullet bullet = Instantiate(_bulletPrefab);
+        Bullet bullet = PoolManager.GetBulletFromPull(_bulletPrefab);
         bullet.transform.SetParent(pointShot);
         bullet.transform.localPosition = Vector3.zero;
-        bullet.Setup(towerData.damage, target, materialTower);
+        bullet.Setup(towerData.damage, target, _materialTower);
         _shootingTime = towerData.shootInterval;
     }
 
-    private Enemy ChooseNearestToCastleEnemy() { //salt 
+    private Enemy ChooseNearestToCastleEnemy() {        //  get nearest to castle enemy in castle list
         Enemy nearestEnemy = null;
         float distanceToCastle = float.MaxValue;
 

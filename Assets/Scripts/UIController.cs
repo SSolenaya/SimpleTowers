@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Assets.Scripts;
 using Seka;
 using TMPro;
 using UnityEngine;
@@ -9,7 +10,9 @@ public class UIController : Singleton<UIController> {
     public Camera mainCamera;
     public CanvasScaler canvasScaler;
     [SerializeField] private BuildingModal _prefabBuildingModalWin; //  prefab of modal window for menu of building towers
+    [SerializeField] private GameStatusModal _prefabGameStatusModalWin; //  prefab of modal window for game status
     private BuildingModal _buildingModalWin;
+    private GameStatusModal _gameStatusModalWin;
 
     public Transform parentForUI;
 
@@ -48,7 +51,7 @@ public class UIController : Singleton<UIController> {
     }
 
 
-    public void ShowWindow(List<TowersTypes> towerTypes, Slot slot) { //SALT
+    public void ShowWindow(List<TowersTypes> towerTypes, Slot slot) { // show modal win for building tower over slot
         if (_buildingModalWin != null) {
             return;
         }
@@ -63,7 +66,7 @@ public class UIController : Singleton<UIController> {
         _buildingModalWin.Setup(towerTypes, slot);
     }
 
-    public void ShowWindow(Tower tower) { //SALT
+    public void ShowWindow(Tower tower) { // show modal win for selling current tower
         if (_buildingModalWin != null) {
             return;
         }
@@ -75,5 +78,13 @@ public class UIController : Singleton<UIController> {
         _buildingModalWin.buttonsPanelRT.anchorMin = new Vector2(viewPos.x, viewPos.y);
         _buildingModalWin.buttonsPanelRT.anchorMax = new Vector2(viewPos.x, viewPos.y);
         _buildingModalWin.Setup(tower);
+    }
+
+    public void ShowStatusWindow(string status) {
+        if (_gameStatusModalWin != null) {
+            return;
+        }
+        _gameStatusModalWin = Instantiate(_prefabGameStatusModalWin, parentForUI);
+        _gameStatusModalWin.SetText(status);
     }
 }

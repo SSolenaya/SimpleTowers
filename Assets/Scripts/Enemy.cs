@@ -87,7 +87,7 @@ namespace Assets.Scripts {
                 Hiding();
                 return;
             }
-            distanceToCastle = targetPathPoint.disForCastle;
+            distanceToCastle = targetPathPoint.distanceForCastle;
             RotationToTarget(_currentPathPoint); //   rotate to target
         }
 
@@ -104,20 +104,8 @@ namespace Assets.Scripts {
 
         private void Hiding() {
             // hiding in the castle with giving damage
-            //PoolManager.PutEnemyToPool(this);
-            try {
-                if (gameObject == null)
-                {
-                    return;
-                }
-            } catch (Exception e) {
-                if (gameObject == null)
-                {
-                    return;
-                }
-            }
-            
-            Destroy(gameObject);
+            PlayerDataController.Inst.CheckForVictory();
+            PoolManager.PutEnemyToPool(this);
             TowerController.Inst.ClearEmptyEnemies();
         }
     }

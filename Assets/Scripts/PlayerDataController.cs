@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts;
 using Seka;
 using UnityEngine;
 
@@ -45,6 +46,7 @@ public class PlayerDataController : Singleton<PlayerDataController> {
     
 
     void Start() {
+        
         currentCoins = SOController.Inst.mainGameSettings.startAmountOfCoins;
         currentHealth = SOController.Inst.mainGameSettings.maxAmountOfHealth;
         maxWavesAmount = SOController.Inst.mainGameSettings.maxAmountOfWaves;
@@ -54,13 +56,20 @@ public class PlayerDataController : Singleton<PlayerDataController> {
     public void DecreaseHealth(float delta) {
         currentHealth -= delta;
         if (currentHealth <= 0) {
+            UIController.Inst.ShowStatusWindow("Game over");
             Time.timeScale = 0;
-            Debug.Log("The end");
         }
     }
 
     public void CountWaves() {
         currentWaveNumber++;
+    }
+
+    public void CheckForVictory()  {     //  check if all waves are over and no enemies on field
+        if (currentWaveNumber == SOController.Inst.waveSO.amountOfAllWaves && EnemyController.Inst.enemiesList.Count == 0) {
+            UIController.Inst.ShowStatusWindow("Victory!!");
+            Time.timeScale = 0;
+        }
     }
 
     public void AddFinance(int coins) {

@@ -20,11 +20,7 @@ namespace Assets.Scripts {
         public void Update() {
             if (_enemyTarget != null) {
                 lastGoodPosition = _enemyTarget.transform.position;
-                //
-                //return;
             }
-
-
             transform.LookAt(lastGoodPosition);
             transform.Translate(Vector3.forward * _speed * Time.deltaTime);
             currentDis = Vector3.Distance(transform.position, lastGoodPosition);
@@ -33,8 +29,8 @@ namespace Assets.Scripts {
                 if (_enemyTarget != null) {
                     _enemyTarget.TakeDamage(_damage);
                 }
-                
-                Destroy(gameObject);
+
+                PoolManager.PutBulletToPool(this);
             }
         }
     }
