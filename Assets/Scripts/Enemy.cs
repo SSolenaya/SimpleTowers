@@ -110,8 +110,8 @@ namespace Assets.Scripts {
 
         private void Hiding() {
             // hiding in the castle with giving damage
-            PlayerDataController.Inst.CheckForVictory();
             ClearingTowers();
+            EnemyController.Inst.RemoveEnemy(this);
             TowerController.Inst.ClearEmptyEnemies();
             PoolManager.PutEnemyToPool(this);
             

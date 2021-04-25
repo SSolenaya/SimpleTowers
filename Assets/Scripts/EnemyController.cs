@@ -18,6 +18,20 @@ namespace Assets.Scripts {
             enemy.index = enemiesList.Count;
         }
 
+        public void RemoveEnemy(Enemy enemy) {
+            for (int i = 0; i < enemiesList.Count; i++)
+            {
+                if (enemiesList[i].index == enemy.index)
+                {
+                    enemiesList.RemoveAt(i);
+                }
+            }
+
+            if (enemiesList.Count == 0) {
+                PlayerDataController.Inst.CheckForVictory();
+            }
+        }
+
         public void CreateNewWave() {
             if (PlayerDataController.Inst.GetCurrentWavesAmount() == SOController.Inst.mainGameSettings.maxAmountOfWaves) return;
             _wave = new Wave();

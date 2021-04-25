@@ -72,7 +72,7 @@ public class PlayerDataController : Singleton<PlayerDataController> {
 
 
     public void CheckForVictory()  {     //  check if all waves are over and no enemies on field
-        if (currentWaveNumber == SOController.Inst.mainGameSettings.maxAmountOfWaves && EnemyController.Inst.enemiesList.Count == 0) {
+        if (currentWaveNumber == SOController.Inst.mainGameSettings.maxAmountOfWaves) {
             UIController.Inst.ShowStatusWindow("Victory!!");
             Time.timeScale = 0;
         }
