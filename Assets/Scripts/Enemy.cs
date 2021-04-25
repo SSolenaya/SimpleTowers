@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -19,6 +20,7 @@ namespace Assets.Scripts {
         private Vector3 _lookAngle;
         private float _distantToTarget;
         private float _lastDistantToTarget;
+        private List<Tower> _foeTowersList = new List<Tower>();
 
         public float distanceToCastle;
 
@@ -52,6 +54,10 @@ namespace Assets.Scripts {
                     _view3.SetActive(true);
                     break;
             }
+        }
+
+        public void SetTowerToFoeList(Tower foeTower) {
+            _foeTowersList.Add(foeTower);
         }
 
         private void Update() {
@@ -105,8 +111,17 @@ namespace Assets.Scripts {
         private void Hiding() {
             // hiding in the castle with giving damage
             PlayerDataController.Inst.CheckForVictory();
-            PoolManager.PutEnemyToPool(this);
+            ClearingTowers();
             TowerController.Inst.ClearEmptyEnemies();
+            PoolManager.PutEnemyToPool(this);
+            
+        }
+
+        private void ClearingTowers() {
+            foreach (var tow in _foeTowersList) {
+                tow.RemoveEnemyFromTower(this);
+            }
+            _foeTowersList.Clear();
         }
     }
 }

@@ -16,21 +16,21 @@ MonoBehaviour:
   listTowerData:
   - towerType: 0
     buildPrice: 200
-    range: 6
+    range: 5
     shootInterval: 0.75
     damage: 10
   - towerType: 1
     buildPrice: 500
-    range: 5
+    range: 4
     shootInterval: 1
     damage: 15
   - towerType: 2
     buildPrice: 800
-    range: 9
+    range: 8
     shootInterval: 1
     damage: 30
   - towerType: 3
     buildPrice: 100
-    range: 7
+    range: 6
     shootInterval: 0.5
     damage: 6

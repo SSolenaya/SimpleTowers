@@ -47,7 +47,10 @@ public class UIController : Singleton<UIController> {
     }
 
     private void OnDisable() {
-        PlayerDataController.Inst.actionCurrentCoins -= SetNewCoinsText;
+        if (PlayerDataController.Inst != null) {
+            PlayerDataController.Inst.actionCurrentCoins -= SetNewCoinsText;
+        }
+        
     }
 
 

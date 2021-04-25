@@ -16,18 +16,18 @@ MonoBehaviour:
   - enemyType: 0
     health: 50
     speed: 0.3
-    damage: 10
+    damage: 1
     minReward: 20
     maxReward: 30
   - enemyType: 1
     health: 30
     speed: 0.5
-    damage: 20
+    damage: 2
     minReward: 25
     maxReward: 40
   - enemyType: 2
     health: 10
     speed: 0.6
-    damage: 30
+    damage: 3
     minReward: 30
     maxReward: 45

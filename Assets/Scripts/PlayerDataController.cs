@@ -63,8 +63,13 @@ public class PlayerDataController : Singleton<PlayerDataController> {
     }
 
     public void CountWaves() {
-        currentWaveNumber++;
+       ++currentWaveNumber;
     }
+
+    public int GetCurrentWavesAmount() {
+        return currentWaveNumber;
+    }
+
 
     public void CheckForVictory()  {     //  check if all waves are over and no enemies on field
         if (currentWaveNumber == SOController.Inst.mainGameSettings.maxAmountOfWaves && EnemyController.Inst.enemiesList.Count == 0) {

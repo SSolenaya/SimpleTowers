@@ -19,6 +19,7 @@ namespace Assets.Scripts {
         }
 
         public void CreateNewWave() {
+            if (PlayerDataController.Inst.GetCurrentWavesAmount() == SOController.Inst.mainGameSettings.maxAmountOfWaves) return;
             _wave = new Wave();
             _wave.Setup();
             PlayerDataController.Inst.CountWaves();
@@ -50,10 +51,7 @@ namespace Assets.Scripts {
 
         public void Restart() {
             _wave = null;
-            CreateNewWave();
             enemiesList.Clear();
         }
-
-       
     }
 }

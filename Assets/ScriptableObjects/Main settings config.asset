@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Main settings config
   m_EditorClassIdentifier: 
   maxAmountOfWaves: 9
-  startAmountOfCoins: 300
+  startAmountOfCoins: 1000
   maxAmountOfHealth: 100

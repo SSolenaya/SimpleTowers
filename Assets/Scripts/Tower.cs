@@ -13,7 +13,7 @@ public class Tower : MonoBehaviour, IPointerClickHandler {
     public TowerData towerData;
 
     public Transform pointShot; //  shooter obj
-    public List<Enemy> _targetEnemyList = new List<Enemy>();
+    [SerializeField]  public List<Enemy> _targetEnemyList = new List<Enemy>();
     [SerializeField] private Bullet _bulletPrefab;
     [SerializeField] private float _shootingTime;
     [SerializeField] private Material _materialTower;
@@ -55,17 +55,6 @@ public class Tower : MonoBehaviour, IPointerClickHandler {
 
         return nearestEnemy;
 
-        /* Enemy nearestEnemy = null;
-         float distanceToCastle = float.MaxValue;
-
-         foreach (Enemy e in _targetEnemyList) {
-             if (e.GetDistanceToCastle() < distanceToCastle) {
-                 distanceToCastle = e.GetDistanceToCastle();
-                 nearestEnemy = e;
-             }
-         }
-
-         return nearestEnemy;*/
     }
 
     public void OnPointerClick(PointerEventData eventData) {
@@ -78,6 +67,7 @@ public class Tower : MonoBehaviour, IPointerClickHandler {
         Enemy enemy = enemyTarget.GetComponent<Enemy>();
         if (enemy != null) {
             AddEnemyToTower(enemy);
+            enemy.SetTowerToFoeList(this);
         }
     }
 
