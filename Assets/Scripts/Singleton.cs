@@ -9,7 +9,7 @@ namespace Seka {
             get {
                 if(_inst == null) {
                     _inst = FindObjectOfType<T>();
-                    DontDestroyOnLoad(_inst.gameObject);
+                    //DontDestroyOnLoad(_inst.gameObject);  //  temporary for scene  reload
                 }
                              
                 return _inst;

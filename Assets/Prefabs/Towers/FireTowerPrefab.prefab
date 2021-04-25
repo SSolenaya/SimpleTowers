@@ -367,6 +367,7 @@ MonoBehaviour:
   _bulletPrefab: {fileID: 3092569213053239763, guid: d91f08a521cba1f48a344bd11779f4ae,
     type: 3}
   _shootingTime: 0
+  _materialTower: {fileID: 2100000, guid: 36f2c7def3cad8e45b8f42b7ce19cafc, type: 2}
   _shootingRange: {fileID: 1686984974}
 --- !u!54 &517666241
 Rigidbody:

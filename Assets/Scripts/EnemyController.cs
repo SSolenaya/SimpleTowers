@@ -9,6 +9,9 @@ namespace Assets.Scripts {
 
         [SerializeField] private Enemy _enemyPrefab;
 
+        void Start() {
+            CreateNewWave();
+            }
 
         public void AddEnemy(Enemy enemy) {
             enemiesList.Add(enemy);

@@ -16,7 +16,7 @@ public class Tower : MonoBehaviour, IPointerClickHandler {
     public List<Enemy> _targetEnemyList = new List<Enemy>();
     [SerializeField] private Bullet _bulletPrefab;
     [SerializeField] private float _shootingTime;
-    private Material _materialTower;
+    [SerializeField] private Material _materialTower;
     [SerializeField] private SphereCollider _shootingRange;
 
     private void OnEnable() {

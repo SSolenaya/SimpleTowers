@@ -91,9 +91,10 @@ public class PlayerDataController : Singleton<PlayerDataController> {
     }
 
     public void RestartGame() {
-        SceneManager.LoadScene(0);
-        EnemyController.Inst.Restart();
         Time.timeScale = 1;
+        SceneManager.LoadScene(0);
+        //EnemyController.Inst.Restart();
+      
     }
 
 
