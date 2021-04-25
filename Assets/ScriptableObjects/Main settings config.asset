@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bbc6811926c9284c8a0b4d85143d54d, type: 3}
   m_Name: Main settings config
   m_EditorClassIdentifier: 
-  maxAmountOfWaves: 1
+  maxAmountOfWaves: 9
   startAmountOfCoins: 300
   maxAmountOfHealth: 100
