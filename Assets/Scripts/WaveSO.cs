@@ -9,5 +9,4 @@ public class WaveSO : ScriptableObject {
     public float pauseBeforeNextWave;
     public float timeBetweenUnits;
 
-    public int amountOfAllWaves;
 }

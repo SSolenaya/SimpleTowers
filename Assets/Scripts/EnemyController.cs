@@ -45,6 +45,12 @@ namespace Assets.Scripts {
             }
         }
 
+        public void Restart() {
+            _wave = null;
+            CreateNewWave();
+            enemiesList.Clear();
+        }
+
        
     }
 }

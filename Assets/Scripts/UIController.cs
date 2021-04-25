@@ -34,7 +34,7 @@ public class UIController : Singleton<UIController> {
     }
 
     public void SetNewWavesText(int passedWavesNumber) {
-        wavesValueText.text = passedWavesNumber + "/" + SOController.Inst.waveSO.amountOfAllWaves;
+        wavesValueText.text = passedWavesNumber + "/" + SOController.Inst.mainGameSettings.maxAmountOfWaves;
     }
 
     public void SetNewHealthText(float currentHealth) {

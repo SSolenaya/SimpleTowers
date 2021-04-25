@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Assets.Scripts;
 using Seka;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerDataController : Singleton<PlayerDataController> {
     private int _currentCoins;
@@ -66,7 +67,7 @@ public class PlayerDataController : Singleton<PlayerDataController> {
     }
 
     public void CheckForVictory()  {     //  check if all waves are over and no enemies on field
-        if (currentWaveNumber == SOController.Inst.waveSO.amountOfAllWaves && EnemyController.Inst.enemiesList.Count == 0) {
+        if (currentWaveNumber == SOController.Inst.mainGameSettings.maxAmountOfWaves && EnemyController.Inst.enemiesList.Count == 0) {
             UIController.Inst.ShowStatusWindow("Victory!!");
             Time.timeScale = 0;
         }
@@ -87,6 +88,12 @@ public class PlayerDataController : Singleton<PlayerDataController> {
 
     public void RewardForEnemy(int reward) {
         currentCoins += reward;
+    }
+
+    public void RestartGame() {
+        SceneManager.LoadScene(0);
+        EnemyController.Inst.Restart();
+        Time.timeScale = 1;
     }
 
 

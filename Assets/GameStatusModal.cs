@@ -11,7 +11,7 @@ public class GameStatusModal : MonoBehaviour {
 
     void Start() {
         mainButton.onClick.RemoveAllListeners();
-        mainButton.onClick.AddListener((() => SceneManager.LoadScene(0)));
+        mainButton.onClick.AddListener(() => PlayerDataController.Inst.RestartGame());
     }
 
     public void SetText(string newText) {

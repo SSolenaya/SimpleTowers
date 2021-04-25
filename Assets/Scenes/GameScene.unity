@@ -3981,6 +3981,8 @@ MonoBehaviour:
   mainCamera: {fileID: 1687258584}
   canvasScaler: {fileID: 19737766}
   _prefabBuildingModalWin: {fileID: 400, guid: 00fc959cf747b91498c894fdb6b8f0a5, type: 3}
+  _prefabGameStatusModalWin: {fileID: 2715042687822236616, guid: 3def47303b95661469ccbc124ef5254a,
+    type: 3}
   parentForUI: {fileID: 19737768}
   wavesValueText: {fileID: 1049847423}
   healthValueText: {fileID: 1953518790}
