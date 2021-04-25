@@ -1,35 +1,45 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-//using TMPro;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.UI;
 using UnityTemplateProjects;
-using Image = UnityEngine.UI.Image;
+
+//using TMPro;
 
 public class PriceItem : MonoBehaviour {
-
     public TMP_Text priceTMP;
     public Image image;
     public Button actionButton; //  for buy and for sell
     public Action actionOnButton;
+    public int priceTower;
 
-
-    void Start() {
+    private void Start() {
         actionButton.onClick.RemoveAllListeners();
         actionButton.onClick.AddListener(OnClick);
+        
     }
+
+    public void OnEnable() {
+        PlayerDataController.Inst.actionCurrentCoins += CheckPrice;
+    }
+
+    public void OnDisable() {
+        PlayerDataController.Inst.actionCurrentCoins -= CheckPrice;
+    }
+
+    private void CheckPrice(int coins) {
+        actionButton.interactable = priceTower <= coins;
+    }
+
 
     public void Setup(int price, TowersTypes towerType, Action action) {
         actionOnButton += action;
+        CheckPrice(PlayerDataController.Inst.currentCoins);
         SetPrice(price);
         SetImage(towerType);
     }
 
-    public void Setup(int price, Action action)
-    {
+    public void Setup(int price, Action action) {
         actionOnButton += action;
         SetPrice(price);
         SetSellImage();
@@ -46,8 +56,7 @@ public class PriceItem : MonoBehaviour {
 
     private void SetSellImage() {
         Sprite spr = Resources.Load<Sprite>("Sprites/sellSprite");
-        if (spr == null)
-        {
+        if (spr == null) {
             Debug.Log(" Sprite for priceItem is not exist by this path: " + "Sprites/sellSprite");
             return;
         }
@@ -56,17 +65,16 @@ public class PriceItem : MonoBehaviour {
     }
 
     private void SetImage(TowersTypes towerType) {
-
-        Sprite spr = Resources.Load<Sprite>("Sprites/" + towerType.ToString());
+        Sprite spr = Resources.Load<Sprite>("Sprites/" + towerType);
         if (spr == null) {
-            Debug.Log(" Sprite for priceItem is not exist by this path: " + towerType.ToString());
+            Debug.Log(" Sprite for priceItem is not exist by this path: " + towerType);
             return;
         }
 
         image.sprite = spr;
     }
 
-    void OnDestroy() {
+    private void OnDestroy() {
         actionOnButton = null;
     }
 }

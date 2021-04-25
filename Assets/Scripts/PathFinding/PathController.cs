@@ -11,13 +11,18 @@ public class PathController : Singleton<PathController> {
 
     private void OnEnable() {
         pathPointsList = transform.GetComponentsInChildren<PathPoint>().ToList();
-        for (int i = 0; i < pathPointsList.Count; i++) {
+        for (int i = pathPointsList.Count - 1; i >= 0; i--) {//saltзадаём длины до замка
             pathPointsList[i].index = i;
+            if (i == pathPointsList.Count - 1) {
+                pathPointsList[i].disForCastle = Vector3.Distance(pathPointsList[i].transform.position, Castle.Inst.transform.position);
+            } else {
+                pathPointsList[i].disForCastle = Vector3.Distance(pathPointsList[i].transform.position, pathPointsList[i + 1].transform.position) + pathPointsList[i + 1].disForCastle;
+            }
         }
     }
 
     public PathPoint GetNextPathPoint(int currentPointIndex) {
-        if (currentPointIndex  + 1 >= pathPointsList.Count) {
+        if (currentPointIndex + 1 >= pathPointsList.Count) {
             return null;
         }
 

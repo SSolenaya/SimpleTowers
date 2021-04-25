@@ -36,7 +36,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -217, y: 99}
-  m_SizeDelta: {x: 150, y: 150}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &7762747976279682749
 MonoBehaviour:
@@ -53,6 +53,7 @@ MonoBehaviour:
   priceTMP: {fileID: 773587725517812220}
   image: {fileID: 1442552395727435972}
   actionButton: {fileID: 6309270165886620926}
+  priceTower: 0
 --- !u!1 &2832811222577935406
 GameObject:
   m_ObjectHideFlags: 0

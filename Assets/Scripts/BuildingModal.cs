@@ -1,44 +1,37 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityTemplateProjects;
-using Button = UnityEngine.UI.Button;
-
 
 public class BuildingModal : MonoBehaviour {
-
-    public TMP_Text titleText;
+    public RectTransform buttonsPanelRT;
     public Transform parentForPriceItems;
     public List<PriceItem> priceItemsList = new List<PriceItem>();
     public Button closeBtn;
     public PriceItem priceItemPrefab;
 
-    void Start() {
+    private void Start() {
         closeBtn.onClick.RemoveAllListeners();
         closeBtn.onClick.AddListener(Destroy);
     }
-    public void Setup (List<TowersTypes> towerTypes, Slot baseSlot) {
-        
 
-        foreach (var t in towerTypes) {
-            var pI =Instantiate(priceItemPrefab, parentForPriceItems);
-            var tData = SOController.Inst.GetTowerDataByType(t);
-
+    public void Setup(List<TowersTypes> towerTypes, Slot baseSlot) {
+        foreach (TowersTypes t in towerTypes) {
+            PriceItem pI = Instantiate(priceItemPrefab, parentForPriceItems);
+            TowerData tData = SOController.Inst.GetTowerDataByType(t);
+            pI.priceTower = tData.buildPrice;
             pI.Setup(tData.buildPrice, t, () => {
                 TowerController.Inst.BuildTowerOnCurrentSlot(tData, baseSlot);
                 Destroy();
             });
-            if (tData.buildPrice > PlayerDataController.Inst.currentCoins) {
-                pI.actionButton.interactable = false;
-            }
-
+          
             priceItemsList.Add(pI);
         }
     }
 
     public void Setup(Tower tower) {
-        var pI = Instantiate(priceItemPrefab, parentForPriceItems);
+        PriceItem pI = Instantiate(priceItemPrefab, parentForPriceItems);
         pI.Setup(tower.towerData.buildPrice, () => {
             PlayerDataController.Inst.AddFinance(tower.towerData.buildPrice);
             tower.DestroyTower();
@@ -46,7 +39,7 @@ public class BuildingModal : MonoBehaviour {
         });
     }
 
-    void OnDisable() {
+    private void OnDisable() {
         Clear();
     }
 
@@ -60,5 +53,4 @@ public class BuildingModal : MonoBehaviour {
             Destroy(gameObject);
         }
     }
-
 }

@@ -8,7 +8,7 @@ namespace Assets.Scripts {
         public Wave _wave;
 
         [SerializeField] private Enemy _enemyPrefab;
-        
+
 
         public void AddEnemy(Enemy enemy) {
             enemiesList.Add(enemy);
@@ -22,18 +22,18 @@ namespace Assets.Scripts {
         }
 
         public void SpawnEnemies() {
-            var spawnPoint = PathController.Inst.GetPathPointByIndex(0);
-            var enemy = Instantiate(_enemyPrefab);
-            enemy.transform.position = spawnPoint.transform.position + Vector3.up*0.1f;
+            PathPoint spawnPoint = PathController.Inst.GetPathPointByIndex(0);
+            Enemy enemy = Instantiate(_enemyPrefab);
+            enemy.transform.position = spawnPoint.transform.position + Vector3.up * Random.Range(0.00f, 0.02f);
             AddEnemy(enemy);
             enemy.Setup();
-
         }
 
-        void Update() {
+        private void Update() {
             if (_wave == null) {
                 CreateNewWave();
             }
+
             _wave.Update();
             if (_wave.CanSpawn()) {
                 SpawnEnemies();
