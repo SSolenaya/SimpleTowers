@@ -7,7 +7,7 @@ namespace Assets.Scripts {
         [SerializeField] private Enemy _enemyTarget;
         public float currentDis;
         public MeshRenderer meshRenderer;
-        private Vector3 lastGoodPosition;
+        public Vector3 lastGoodPosition;
         public int enemyIndex;
 
         public void Setup(float damage, Enemy enemy, Material material) {
@@ -25,21 +25,24 @@ namespace Assets.Scripts {
         }
 
         public void Update() {
-            if (_enemyTarget != null && _enemyTarget.index == enemyIndex) {
+            if (_enemyTarget != null && _enemyTarget.index == enemyIndex && _enemyTarget.onScene ) {
                 lastGoodPosition = _enemyTarget.transform.position;
+            }
+
+            if (lastGoodPosition  == Vector3.zero) {
+                PoolManager.PutBulletToPool(this);
             }
 
             transform.LookAt(lastGoodPosition);
             transform.Translate(Vector3.forward * _speed * Time.deltaTime);
             currentDis = Vector3.Distance(transform.position, lastGoodPosition);
 
-            if (currentDis < 0.05f) {
-                if (_enemyTarget != null && _enemyTarget.index == enemyIndex) {
+            if (currentDis < 0.05f ) {
+                if (_enemyTarget != null && _enemyTarget.index == enemyIndex && _enemyTarget.onScene && _enemyTarget.transform.position != Vector3.zero) {
                     _enemyTarget.TakeDamage(_damage);
                 }
                 Resets();
-                Destroy(gameObject);
-                //PoolManager.PutBulletToPool(this);
+                PoolManager.PutBulletToPool(this);
             }
         }
     }

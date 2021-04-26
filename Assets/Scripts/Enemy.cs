@@ -28,6 +28,8 @@ namespace Assets.Scripts {
         [SerializeField] private GameObject _view2;
         [SerializeField] private GameObject _view3;
 
+        public bool onScene;
+
         public void Setup() {
             Array values = Enum.GetValues(typeof(EnemyTypes));
             enemyType = (EnemyTypes) values.GetValue(Random.Range(0, values.Length));
@@ -75,9 +77,10 @@ namespace Assets.Scripts {
         public void TakeDamage(float damage) {
             _currentHP -= damage;
             if (_currentHP < 0) {
-                Hiding();
                 int rew = Random.Range(enemyData.minReward, enemyData.maxReward);
                 PlayerDataController.Inst.RewardForEnemy(rew);
+                Hiding();
+           
             }
         }
 
@@ -104,12 +107,22 @@ namespace Assets.Scripts {
             transform.DORotate(_lookAngle, 0.3f).SetEase(Ease.Linear);
         }
 
+        private void Reset() {
+            enemyData = null;
+            _currentHP = 0;
+            _currentPathPoint = null;
+
+        }
+
         private void Hiding() {
+            onScene = false;
             // hiding in the castle with giving damage
             ClearingTowers();
             EnemyController.Inst.RemoveEnemy(this);
-            TowerController.Inst.ClearEmptyEnemies();
+            Reset();
+           
             PoolManager.PutEnemyToPool(this);
+            TowerController.Inst.ClearEmptyEnemies();
         }
 
         private void ClearingTowers() {

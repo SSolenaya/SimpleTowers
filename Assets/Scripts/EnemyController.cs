@@ -41,6 +41,9 @@ namespace Assets.Scripts {
         public void SpawnEnemies() {
             PathPoint spawnPoint = PathController.Inst.GetPathPointByIndex(0);
             Enemy enemy = PoolManager.GetEnemyFromPull(_enemyPrefab);
+            enemy.onScene = true;
+            enemy.transform.SetParent(transform);
+            enemy.gameObject.SetActive(true);
             enemy.transform.position = spawnPoint.transform.position + Vector3.up * Random.Range(0.00f, 0.02f);
             AddEnemy(enemy);
             enemy.Setup();

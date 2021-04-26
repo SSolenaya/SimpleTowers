@@ -34,8 +34,7 @@ public class Tower : MonoBehaviour, IPointerClickHandler {
 
     public void Shoot() {
         Enemy target = ChooseNearestToCastleEnemy();
-        //Bullet bullet = PoolManager.GetBulletFromPull(_bulletPrefab);
-        Bullet bullet = Instantiate(_bulletPrefab);
+        Bullet bullet = PoolManager.GetBulletFromPull(_bulletPrefab);
         bullet.gameObject.SetActive(true);
         bullet.transform.SetParent(pointShot);
         bullet.transform.localPosition = Vector3.zero;
