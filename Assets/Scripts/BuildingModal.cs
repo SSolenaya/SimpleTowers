@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityTemplateProjects;
 
 namespace Assets.Scripts {
     public class BuildingModal : MonoBehaviour {
@@ -16,7 +15,7 @@ namespace Assets.Scripts {
             closeBtn.onClick.AddListener(Destroy);
         }
 
-        public void Setup(List<TowersTypes> towerTypes, Slot baseSlot) {
+        public void Setup(List<TowersTypes> towerTypes, Slot baseSlot) { //  setup modal win for building new tower over slot
             foreach (TowersTypes t in towerTypes) {
                 PriceItem pI = Instantiate(priceItemPrefab, parentForPriceItems);
                 TowerData tData = SOController.Inst.GetTowerDataByType(t);
@@ -25,15 +24,15 @@ namespace Assets.Scripts {
                     TowerController.Inst.BuildTowerOnCurrentSlot(tData, baseSlot);
                     Destroy();
                 });
-          
+
                 priceItemsList.Add(pI);
             }
         }
 
-        public void Setup(Tower tower) {
+        public void Setup(Tower tower) { //  setup modal win for selling current tower
             PriceItem pI = Instantiate(priceItemPrefab, parentForPriceItems);
             pI.Setup(tower.towerData.buildPrice, () => {
-                PlayerDataController.Inst.AddFinance(tower.towerData.buildPrice);
+                PlayerDataController.Inst.AddFinance((int)(tower.towerData.buildPrice * SOController.Inst.mainGameSettings.saleTowerFactor));
                 tower.DestroyTower();
                 Destroy();
             });

@@ -1,28 +1,27 @@
 ﻿using System.Collections.Generic;
-using Seka;
 using UnityEngine;
 
 namespace Assets.Scripts {
     public class EnemyController : Singleton<EnemyController> {
         public List<Enemy> enemiesList = new List<Enemy>();
         public Wave _wave;
-
+        public int indexEnemy;
         [SerializeField] private Enemy _enemyPrefab;
 
-        void Start() {
+        private void Start() {
+            indexEnemy = 0;
             CreateNewWave();
-            }
+        }
 
         public void AddEnemy(Enemy enemy) {
             enemiesList.Add(enemy);
-            enemy.index = enemiesList.Count;
+            indexEnemy++;
+            enemy.index = indexEnemy;
         }
 
         public void RemoveEnemy(Enemy enemy) {
-            for (int i = 0; i < enemiesList.Count; i++)
-            {
-                if (enemiesList[i].index == enemy.index)
-                {
+            for (int i = 0; i < enemiesList.Count; i++) {
+                if (enemiesList[i].index == enemy.index) {
                     enemiesList.RemoveAt(i);
                 }
             }

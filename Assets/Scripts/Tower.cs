@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using Assets.Scripts;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityTemplateProjects;
 
 public class Tower : MonoBehaviour, IPointerClickHandler {
     /*<summary>
@@ -13,7 +12,7 @@ public class Tower : MonoBehaviour, IPointerClickHandler {
     public TowerData towerData;
 
     public Transform pointShot; //  shooter obj
-    [SerializeField]  public List<Enemy> _targetEnemyList = new List<Enemy>();
+    [SerializeField] public List<Enemy> _targetEnemyList = new List<Enemy>();
     [SerializeField] private Bullet _bulletPrefab;
     [SerializeField] private float _shootingTime;
     [SerializeField] private Material _materialTower;
@@ -28,21 +27,23 @@ public class Tower : MonoBehaviour, IPointerClickHandler {
     private void Update() {
         _shootingTime -= Time.deltaTime;
         _shootingTime = _shootingTime < 0 ? -1 : _shootingTime;
-        if (_targetEnemyList.Count > 0 && _shootingTime <= 0) {
+        if (_targetEnemyList.Count > 0 && _shootingTime < 0) {
             Shoot();
         }
     }
 
     public void Shoot() {
         Enemy target = ChooseNearestToCastleEnemy();
-        Bullet bullet = PoolManager.GetBulletFromPull(_bulletPrefab);
+        //Bullet bullet = PoolManager.GetBulletFromPull(_bulletPrefab);
+        Bullet bullet = Instantiate(_bulletPrefab);
+        bullet.gameObject.SetActive(true);
         bullet.transform.SetParent(pointShot);
         bullet.transform.localPosition = Vector3.zero;
         bullet.Setup(towerData.damage, target, _materialTower);
         _shootingTime = towerData.shootInterval;
     }
 
-    private Enemy ChooseNearestToCastleEnemy() {        //  get nearest to castle enemy in castle list
+    private Enemy ChooseNearestToCastleEnemy() { //  get nearest to castle enemy in castle list
         Enemy nearestEnemy = null;
         float distanceToCastle = float.MaxValue;
 
@@ -54,12 +55,11 @@ public class Tower : MonoBehaviour, IPointerClickHandler {
         }
 
         return nearestEnemy;
-
     }
 
     public void OnPointerClick(PointerEventData eventData) {
         // SoundController.inst.PlayClick();
-        Debug.Log("Click on tower");
+        //Debug.Log("Click on tower");
         UIController.Inst.ShowWindow(this);
     }
 

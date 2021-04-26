@@ -20,7 +20,7 @@ namespace Assets.Scripts {
         private Vector3 _lookAngle;
         private float _distantToTarget;
         private float _lastDistantToTarget;
-        private List<Tower> _foeTowersList = new List<Tower>();
+        private readonly List<Tower> _foeTowersList = new List<Tower>();
 
         public float distanceToCastle;
 
@@ -36,7 +36,6 @@ namespace Assets.Scripts {
             _currentHP = enemyData.health;
             GetNextTarget(PathController.Inst.GetPathPointByIndex(1));
             gameObject.SetActive(true);
-            //Debug.Log(enemyType);
         }
 
         private void ChooseView(EnemyTypes type) {
@@ -71,11 +70,7 @@ namespace Assets.Scripts {
             }
         }
 
-       /* public float GetDistanceToCastle() {
-            PathPoint castlePathPoint = PathController.Inst.GetCastlePoint();
-            float dist = Vector3.Distance(transform.position, castlePathPoint.transform.position);
-            return dist;
-        }*/
+
 
         public void TakeDamage(float damage) {
             _currentHP -= damage;
@@ -88,11 +83,12 @@ namespace Assets.Scripts {
 
         private void GetNextTarget(PathPoint targetPathPoint) {
             _currentPathPoint = targetPathPoint;
-          
+
             if (_currentPathPoint == null) {
                 Hiding();
                 return;
             }
+
             distanceToCastle = targetPathPoint.distanceForCastle;
             RotationToTarget(_currentPathPoint); //   rotate to target
         }
@@ -114,14 +110,20 @@ namespace Assets.Scripts {
             EnemyController.Inst.RemoveEnemy(this);
             TowerController.Inst.ClearEmptyEnemies();
             PoolManager.PutEnemyToPool(this);
-            
         }
 
         private void ClearingTowers() {
-            foreach (var tow in _foeTowersList) {
+            foreach (Tower tow in _foeTowersList) {
                 tow.RemoveEnemyFromTower(this);
             }
+
             _foeTowersList.Clear();
         }
     }
 }
+
+/* public float GetDistanceToCastle() {
+     PathPoint castlePathPoint = PathController.Inst.GetCastlePoint();
+     float dist = Vector3.Distance(transform.position, castlePathPoint.transform.position);
+     return dist;
+ }*/

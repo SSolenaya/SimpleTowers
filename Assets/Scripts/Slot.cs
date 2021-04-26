@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityTemplateProjects;
 
 namespace Assets.Scripts {
     public class Slot : MonoBehaviour, IPointerClickHandler {

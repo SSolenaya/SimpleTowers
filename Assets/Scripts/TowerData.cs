@@ -1,7 +1,6 @@
 ﻿using System;
 
-namespace UnityTemplateProjects {
-
+namespace Assets.Scripts {
     public enum TowersTypes {
         fire,
         ice,
@@ -16,6 +15,5 @@ namespace UnityTemplateProjects {
         public int range;
         public float shootInterval;
         public float damage;
-
     }
 }
