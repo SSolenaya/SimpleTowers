@@ -10,12 +10,12 @@ namespace Assets.Scripts {
         public Vector3 lastGoodPosition;
         public int enemyIndex;
 
-        public void Setup(float damage, Enemy enemy, Material material) {
+        public void Setup(float damage, Enemy enemy, Material material, float bulSpeed) {
             enemyIndex = enemy.index;
             meshRenderer.material = material;
             _damage = damage;
             _enemyTarget = enemy;
-            _speed = SOController.Inst.towersSettings.bulletSpeed;
+            _speed = bulSpeed;
         }
 
         public void Resets() {

@@ -1,19 +1,35 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEditor;
+using UnityEngine;
 
 namespace Assets.Scripts {
     public class SOController : Singleton<SOController> {
         public MainGameSettingsSO mainGameSettings;
-        public TowersSettingsSO towersSettings;
+        public ArrowTowerSO arrowTowerSettings;
+        public PoisonTowerSO poisonTowerSettings;
+        public IceTowerSO iceTowerSettings;
+        public FireTowerSO fireTowerSettings;
+
         public EnemiesSettingsSO enemiesSettings;
         public WaveSettingsSO waveSO;
 
-
         public TowerData GetTowerDataByType(TowersTypes type) {
             TowerData result = null;
-            foreach (TowerData tData in towersSettings.listTowerData) {
-                if (tData.towerType == type) {
-                    result = tData;
-                }
+            switch (type) {
+                case TowersTypes.fire:
+                    result = fireTowerSettings.GetTowerData();
+                    break;
+                case TowersTypes.ice:
+                    result = iceTowerSettings.GetTowerData();
+                    break;
+                case TowersTypes.poison:
+                    result = poisonTowerSettings.GetTowerData();
+                    break;
+                case TowersTypes.arrows:
+                    result = arrowTowerSettings.GetTowerData();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(type), type, null);
             }
 
             if (result == null) Debug.Log("This type is not in towers list: " + type);

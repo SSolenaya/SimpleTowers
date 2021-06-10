@@ -38,7 +38,7 @@ public class Tower : MonoBehaviour, IPointerClickHandler {
         bullet.gameObject.SetActive(true);
         bullet.transform.SetParent(pointShot);
         bullet.transform.localPosition = Vector3.zero;
-        bullet.Setup(towerData.damage, target, _materialTower);
+        bullet.Setup(towerData.damage, target, _materialTower, towerData.bulletSpeed);
         _shootingTime = towerData.shootInterval;
     }
 
