@@ -1,4 +1,5 @@
 ﻿using System;
+using Assets.Scripts.Settings;
 using UnityEditor;
 using UnityEngine;
 
@@ -9,8 +10,9 @@ namespace Assets.Scripts {
         public PoisonTowerSO poisonTowerSettings;
         public IceTowerSO iceTowerSettings;
         public FireTowerSO fireTowerSettings;
-
-        public EnemiesSettingsSO enemiesSettings;
+        public T1_EnemySO enemy1Settings;
+        public T2_EnemySO enemy2Settings;
+        public T3_EnemySO enemy3Settings;
         public WaveSettingsSO waveSO;
 
         public TowerData GetTowerDataByType(TowersTypes type) {
@@ -29,7 +31,8 @@ namespace Assets.Scripts {
                     result = arrowTowerSettings.GetTowerData();
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(type), type, null);
+                    Debug.Log("This type is not in towers list: " + type);
+                    break;
             }
 
             if (result == null) Debug.Log("This type is not in towers list: " + type);
@@ -38,10 +41,20 @@ namespace Assets.Scripts {
 
         public EnemyData GetEnemyDataByType(EnemyTypes type) {
             EnemyData result = null;
-            foreach (EnemyData tData in enemiesSettings.listEnemyData) {
-                if (tData.enemyType == type) {
-                    result = tData;
-                }
+            switch (type)
+            {
+                case EnemyTypes.t1:
+                    result = enemy1Settings.GetEnemyData();
+                    break;
+                case EnemyTypes.t2:
+                    result = enemy2Settings.GetEnemyData();
+                    break;
+                case EnemyTypes.t3:
+                    result = enemy3Settings.GetEnemyData();
+                    break;
+                default:
+                    Debug.Log("This type is not in enemies list: " + type);
+                    break;
             }
 
             if (result == null) Debug.Log("This type is not in enemies list: " + type);

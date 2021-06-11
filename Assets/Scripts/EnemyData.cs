@@ -17,5 +17,14 @@ namespace Assets.Scripts {
 
         public int minReward;
         public int maxReward;
+
+        public EnemyData(EnemyTypes _enemyType, float _health, float _speed, float _damage, int _minReward, int _maxReward) {
+            enemyType = _enemyType;
+            health = _health;
+            speed = _speed;
+            damage = _damage;
+            minReward = _minReward;
+            maxReward = _maxReward;
+        }
     }
 }

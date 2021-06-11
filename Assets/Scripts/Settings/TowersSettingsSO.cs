@@ -1,7 +1,7 @@
-using System.Collections.Generic;
+using Assets.Editor;
 using UnityEngine;
 
-namespace Assets.Scripts {
+namespace Assets.Scripts.Settings {
     public enum TowersTypes
     {
         fire,
@@ -17,7 +17,7 @@ namespace Assets.Scripts {
         [Range(4, 20)] public int range;
         [Range(0.1f, 1)] public float shootInterval;
         [Range(1, 20)] public float damage;
-        public TowersTypes type;
+        [ShowOnly] public TowersTypes type;
 
         public TowerData GetTowerData() {
             var resultData = new TowerData(buildPrice, range, shootInterval, damage, bulletSpeed, type);

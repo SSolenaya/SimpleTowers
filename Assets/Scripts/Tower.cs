@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Assets.Scripts;
+using Assets.Scripts.Settings;
 using UnityEngine;
 using UnityEngine.EventSystems;
 

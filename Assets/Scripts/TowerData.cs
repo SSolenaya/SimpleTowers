@@ -1,4 +1,5 @@
 ﻿using System;
+using Assets.Scripts.Settings;
 
 namespace Assets.Scripts {
     [Serializable]

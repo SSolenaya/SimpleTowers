@@ -1,11 +1,16 @@
 ﻿using System.Collections.Generic;
+using System.IO;
+using Assets.Scripts.Settings;
 using UnityEngine;
 
 namespace Assets.Scripts
 {
     [CreateAssetMenu(menuName = "Poison Tower SO")]
-    public abstract class PoisonTowerSO : TowersSO
+    public class PoisonTowerSO : TowersSO
     {
-        public TowersTypes type = TowersTypes.poison;
+        public PoisonTowerSO() {
+            type = TowersTypes.poison;
+        }
+
     }
 }

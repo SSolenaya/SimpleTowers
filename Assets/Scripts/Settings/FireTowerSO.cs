@@ -1,11 +1,16 @@
 ﻿using System.Collections.Generic;
+using System.IO;
+using Assets.Scripts.Settings;
 using UnityEngine;
 
 namespace Assets.Scripts
 {
     [CreateAssetMenu(menuName = "Fire Tower SO")]
-    public abstract class FireTowerSO : TowersSO
+    public class FireTowerSO : TowersSO
     {
-        public TowersTypes type = TowersTypes.fire;
+        public FireTowerSO()
+        {
+            type = TowersTypes.fire;
+        }
     }
 }

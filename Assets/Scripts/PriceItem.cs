@@ -1,4 +1,5 @@
 using System;
+using Assets.Scripts.Settings;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

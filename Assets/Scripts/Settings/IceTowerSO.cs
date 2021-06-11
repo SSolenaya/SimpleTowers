@@ -1,11 +1,17 @@
 ﻿using System.Collections.Generic;
+using System.IO;
+using Assets.Scripts.Settings;
 using UnityEngine;
 
 namespace Assets.Scripts
 {
     [CreateAssetMenu(menuName = "Ice Tower SO")]
-    public abstract class IceTowerSO : TowersSO
+    public class IceTowerSO : TowersSO
     {
-        public TowersTypes type = TowersTypes.ice;
+        public IceTowerSO()
+        {
+            type = TowersTypes.ice;
+        }
+      
     }
 }
